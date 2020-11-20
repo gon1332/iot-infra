@@ -1,0 +1,19 @@
+{
+  "name": "iot-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-strongloop": "^2.1.0"
+  }
+}

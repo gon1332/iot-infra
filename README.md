@@ -4,23 +4,27 @@ A really simple IoT infrastructure project based on MQTT.
 ## Project dependencies
  * [Node.js](https://nodejs.org/en/) >= 12.8
 
-## Run the example
+## Run example without Docker
 
  1. Install depedencies:
  ```{shell}
- $ npm install
+ $ npm --prefix broker install broker
+ $ npm --prefix monitor install monitor
+ $ npm --prefix end_device install end_device
  ```
 
  2. Open a terminal. Run the server locally with:
  ```{shell}
- $ node broker/index.js
+ $ cd broker
+ $ node index.js
 
  Broker started and listening on port 1883
  ```
 
  3. Open a new terminal. Run the monitor MQTT client.
 ```{shell}
- $ node monitor/index.js
+ $ cd monitor
+ $ node index.js
 
  MQTT client connected!
  Subscribed:
@@ -30,7 +34,8 @@ A really simple IoT infrastructure project based on MQTT.
 
  4. Open a new terminal. Run the end-device MQTT client.
 ```{shell}
- $ node end_device/index.js
+ $ cd end_device
+ $ node index.js
 
  MQTT client connected.
  MQTT client published message.
