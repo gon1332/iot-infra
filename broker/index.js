@@ -1,6 +1,13 @@
 'use strict';
 
-const port = 1883;
+require('dotenv').config();
+
+const {
+  BROKER_PORT,
+} = process.env;
+
+
+const port = BROKER_PORT;
 
 const broker = {};
 
