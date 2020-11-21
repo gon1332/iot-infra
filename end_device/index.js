@@ -41,7 +41,7 @@ endDevice.connect = function connect(actions) {
  */
 endDevice.send = function send(topic, measurement) {
   const msg = `${measurement}`;
-  endDevice.client.publish(topic, msg, {qos: 0}, (err) => {
+  endDevice.client.publish(topic, msg, {qos: 0, retain: true}, (err) => {
     if (err) {
       console.log(`MQTT client error in publishing: ${err}`);
     } else {
