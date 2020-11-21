@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const sensor = require('./src/sensor');
 
 const {
   BROKER_HOST,
@@ -67,8 +68,13 @@ process.on('SIGINT', () => {
   endDevice.disconnect(() => {
     console.log('MQTT client disconnected.');
   });
+  process.exit(0);
 });
 
 endDevice.connect(() => {
-  endDevice.send('house/bedroom1/temperature', 10.4);
+  const period = 2000;
+  console.log(`Sensing every ${period} milliseconds`);
+  setInterval(() => {
+    endDevice.send('house/bedroom1/temperature', sensor.read());
+  }, period);
 });
