@@ -1,6 +1,15 @@
 'use strict';
 
-const port = 1883;
+require('dotenv').config();
+
+const {
+  BROKER_HOST,
+  BROKER_PORT,
+} = process.env;
+
+
+const host = BROKER_HOST;
+const port = BROKER_PORT;
 
 const endDevice = {};
 
@@ -11,7 +20,7 @@ const endDevice = {};
  */
 endDevice.connect = function connect(actions) {
   const mqtt = require('mqtt');
-  endDevice.client = mqtt.connect(`mqtt://localhost:${port}`);
+  endDevice.client = mqtt.connect(`mqtt://${host}:${port}`);
 
   endDevice.client.on('connect', () => {
     console.log('MQTT client connected.');

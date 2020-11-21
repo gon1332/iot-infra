@@ -46,7 +46,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install eslint strongloop config
-        run: npm install --only=dev
+        run: npm --prefix broker install --only=dev broker
 
       ################################
       # Run Linter against code base #
@@ -54,7 +54,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
-          LINTER_RULES_PATH: /
+          LINTER_RULES_PATH: /broker/
           VALIDATE_JAVASCRIPT_ES: true
           JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
           DEFAULT_BRANCH: main
