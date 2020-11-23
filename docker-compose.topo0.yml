@@ -13,8 +13,8 @@ services:
     build: ./monitor
     container_name: monitor
     environment:
-      NAME: mon
-      END_DEVICES: 'end'
+      NAME: mon0
+      END_DEVICES: 'end0 end1'
       BROKER_HOST: broker
       BROKER_PORT: 1883
     networks:
@@ -23,11 +23,24 @@ services:
       - broker
     command: [ "./scripts/wait-for", "broker:1883", "--", "node", "index.js"]
 
-  end_device:
+  end_device_0:
     build: ./end_device
-    container_name: end_device
+    container_name: end_device_0
     environment:
-      NAME: end
+      NAME: end0
+      BROKER_HOST: broker
+      BROKER_PORT: 1883
+    networks:
+      - iot-network
+    depends_on:
+      - broker
+    command: [ "./scripts/wait-for", "broker:1883", "--", "node", "index.js"]
+
+  end_device_1:
+    build: ./end_device
+    container_name: end_device_1
+    environment:
+      NAME: end1
       BROKER_HOST: broker
       BROKER_PORT: 1883
     networks:
