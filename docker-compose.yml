@@ -25,7 +25,6 @@ services:
 
   end_device:
     build: ./end_device
-    container_name: end_device
     environment:
       NAME: end
       BROKER_HOST: broker
