@@ -3,8 +3,10 @@
 require('dotenv').config();
 
 const {
+  NAME,
   BROKER_HOST,
   BROKER_PORT,
+  END_DEVICES,
 } = process.env;
 
 
@@ -12,18 +14,29 @@ const host = BROKER_HOST;
 const port = BROKER_PORT;
 
 const monitor = {};
+monitor.name = NAME;
 
 /**
  * Connect to the MQTT broker
  *
  * @param actions Actions to be taken on connection
  */
-monitor.connect = function connect(actions) {
+monitor.connect = function connect(devices, actions) {
   const mqtt = require('mqtt');
   monitor.client = mqtt.connect(`mqtt://${host}:${port}`);
 
   monitor.client.on('connect', () => {
     console.log('MQTT client connected!');
+
+    // Subscribe to every end-devices status topics
+    monitor.end_devices = devices;
+    monitor.end_devices.forEach(device => {
+      const topic = `${device}/status`;
+      monitor.listen(topic, (message) => {
+        console.log(`${devices}: ${message}`);
+      });
+    });
+
     actions();
   });
 };
@@ -76,7 +89,7 @@ process.on('SIGINT', () => {
   });
 });
 
-monitor.connect(() => {
+monitor.connect(END_DEVICES.split(' '), () => {
   const topic = 'house/bedroom1/temperature';
   monitor.listen(topic, (message) => {
     console.log(`${topic}: ${message}`);
